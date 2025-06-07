@@ -123,10 +123,6 @@ onMounted(() => {
   // 添加键盘事件监听
   window.addEventListener('keydown', handleConfetti)
 })
-// 添加组件卸载时的清理逻辑
-onBeforeUnmount(() => {
-  window.removeEventListener('keydown', handleConfetti)
-})
 // 按钮点击处理函数
 const handleConfetti = () => {
   fire();
