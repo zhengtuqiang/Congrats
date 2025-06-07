@@ -129,6 +129,7 @@ onMounted(() => {
 onBeforeUnmount(() => {
   window.removeEventListener('keydown', handleConfetti)
   window.removeEventListener('click', handleConfetti)  
+
 })
 // 按钮点击处理函数
 const handleConfetti = () => {
