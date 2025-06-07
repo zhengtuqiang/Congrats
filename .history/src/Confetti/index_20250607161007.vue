@@ -132,7 +132,7 @@ const handleConfetti = () => {
 
 <template>
   <div class="confetti-container">
-    <button @click="handleConfetti"></button>
+    <button @click="handleConfetti">撒花 </button>
   </div>
 
 </template>
@@ -146,96 +146,87 @@ const handleConfetti = () => {
   padding-bottom: 20px;
 }
 button {
-  background: linear-gradient(45deg, #FF6B6B 0%, #FF8E53 50%, #FFD700 100%);
-  width: 80px;
-  height: 80px;
+  background: linear-gradient(120deg, #ff6b6b 20%, #ff8e53 80%);
+  width: 60px;
+  height: 60px;
+  padding: 0;
   border-radius: 50%;
+  font-size: 24px;
   position: relative;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 
-    0 0 20px rgba(255,107,107,0.6),
-    0 0 40px rgba(255,215,0,0.3) inset;
+  border: 2px solid rgba(255,255,255,0.8);
+  box-shadow: 0 0 20px rgba(255,107,107,0.6);
+  transition: all 0.3s ease;
 }
 
-/* 核心发光效果 */
+/* 添加烟花辐射效果 */
+button::after {
+  content: '';
+  position: absolute;
+  top: -15%;
+  left: -15%;
+  right: -15%;
+  bottom: -15%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 70%);
+  animation: spark 1.5s infinite linear;
+}
+
+/* 添加烟花粒子效果 */
 button::before {
-  content: '🎉';
-  font-size: 40px;
+  content: '🌸';
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  text-shadow: 0 0 15px rgba(255,107,107,0.8);
   z-index: 2;
 }
 
-/* 脉冲光环 */
-button::after {
-  content: '';
-  position: absolute;
-  top: -20%;
-  left: -20%;
-  right: -20%;
-  bottom: -20%;
-  border-radius: 50%;
-  background: radial-gradient(circle, 
-    rgba(255,255,255,0.6) 0%,
-    rgba(255,255,255,0.4) 30%,
-    transparent 70%
-  );
-  animation: 
-    pulse 1.5s infinite ease-out,
-    rotate 6s infinite linear;
-}
-
-/* 动态粒子 */
+/* 添加环绕光点 */
 button span {
   position: absolute;
-  width: 6px;
-  height: 6px;
-  background: #FFF;
+  width: 8px;
+  height: 8px;
+  background: #fff;
   border-radius: 50%;
-  animation: 
-    sparkle 1s infinite linear,
-    floating 2s infinite ease-in-out;
+  animation: orbit 2s linear infinite;
 }
 
-@keyframes pulse {
+@keyframes spark {
   0% { transform: scale(0.8); opacity: 0.8; }
   50% { transform: scale(1.2); opacity: 0.4; }
   100% { transform: scale(0.8); opacity: 0.8; }
 }
 
-@keyframes rotate {
-  to { transform: rotate(360deg); }
-}
-
-@keyframes sparkle {
-  0% { opacity: 0; transform: scale(0); }
-  50% { opacity: 1; transform: scale(1.5); }
-  100% { opacity: 0; transform: scale(2); }
+@keyframes orbit {
+  from { transform: rotate(0deg) translateX(40px) scale(1); }
+  to { transform: rotate(360deg) translateX(40px) scale(0.2); }
 }
 
 button:hover {
-  transform: scale(1.15);
-  box-shadow: 
-    0 0 40px rgba(255,107,107,0.8),
-    0 0 60px rgba(255,215,0,0.5) inset;
+  transform: rotate(360deg) scale(1.1);
+  box-shadow: 0 0 40px rgba(255,107,107,0.8);
 }
 
 button:active {
   transform: scale(0.9);
-  box-shadow: 
-    0 0 80px rgba(255,107,107,1),
-    0 0 100px rgba(255,215,0,0.8) inset;
-  animation: explode 0.3s ease-out;
+  box-shadow: 0 0 50px rgba(255,107,107,1);
 }
 
-@keyframes explode {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.5); opacity: 0.8; }
-  100% { transform: scale(0.9); opacity: 1; }
+/* 生成环绕粒子 */
+button:hover::after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  animation: 
+    particle 1s linear infinite,
+    rotate 4s linear infinite;
+}
+
+@keyframes particle {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 </style>

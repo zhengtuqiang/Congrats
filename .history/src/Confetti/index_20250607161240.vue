@@ -132,7 +132,7 @@ const handleConfetti = () => {
 
 <template>
   <div class="confetti-container">
-    <button @click="handleConfetti"></button>
+    <button @click="handleConfetti">Congrats!</button>
   </div>
 
 </template>
@@ -219,7 +219,7 @@ button span {
 }
 
 button:hover {
-  transform: scale(1.15);
+  transform: scale(1.15) rotate(180deg);
   box-shadow: 
     0 0 40px rgba(255,107,107,0.8),
     0 0 60px rgba(255,215,0,0.5) inset;

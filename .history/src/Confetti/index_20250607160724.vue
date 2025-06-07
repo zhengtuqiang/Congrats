@@ -132,7 +132,7 @@ const handleConfetti = () => {
 
 <template>
   <div class="confetti-container">
-    <button @click="handleConfetti"></button>
+    <button @click="handleConfetti">撒花 🌸</button>
   </div>
 
 </template>
@@ -146,96 +146,39 @@ const handleConfetti = () => {
   padding-bottom: 20px;
 }
 button {
-  background: linear-gradient(45deg, #FF6B6B 0%, #FF8E53 50%, #FFD700 100%);
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  position: relative;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 
-    0 0 20px rgba(255,107,107,0.6),
-    0 0 40px rgba(255,215,0,0.3) inset;
+  background: linear-gradient(145deg, #ff6b6b, #ff8e53); /* 改为橙红色渐变 */
+  padding: 18px 35px;
+  border-radius: 50px;      /* 加大圆角 */
+  font-size: 20px;          /* 放大字体 */
+  font-weight: bold;        /* 加粗字体 */
+  letter-spacing: 1px;      /* 添加字间距 */
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.2); /* 文字阴影 */
+  border: 3px solid #fff;   /* 加粗边框 */
+  box-shadow: 0 6px 20px rgba(255,107,107,0.4); /* 加强阴影 */
+  position: relative;       /* 为动画效果准备 */
+  overflow: hidden;         /* 隐藏溢出效果 */
 }
 
-/* 核心发光效果 */
 button::before {
-  content: '🎉';
-  font-size: 40px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-shadow: 0 0 15px rgba(255,107,107,0.8);
-  z-index: 2;
-}
-
-/* 脉冲光环 */
-button::after {
   content: '';
   position: absolute;
-  top: -20%;
-  left: -20%;
-  right: -20%;
-  bottom: -20%;
-  border-radius: 50%;
-  background: radial-gradient(circle, 
-    rgba(255,255,255,0.6) 0%,
-    rgba(255,255,255,0.4) 30%,
-    transparent 70%
-  );
-  animation: 
-    pulse 1.5s infinite ease-out,
-    rotate 6s infinite linear;
-}
-
-/* 动态粒子 */
-button span {
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  background: #FFF;
-  border-radius: 50%;
-  animation: 
-    sparkle 1s infinite linear,
-    floating 2s infinite ease-in-out;
-}
-
-@keyframes pulse {
-  0% { transform: scale(0.8); opacity: 0.8; }
-  50% { transform: scale(1.2); opacity: 0.4; }
-  100% { transform: scale(0.8); opacity: 0.8; }
-}
-
-@keyframes rotate {
-  to { transform: rotate(360deg); }
-}
-
-@keyframes sparkle {
-  0% { opacity: 0; transform: scale(0); }
-  50% { opacity: 1; transform: scale(1.5); }
-  100% { opacity: 0; transform: scale(2); }
+  top: -50%;
+  left: -50%;
+  right: -50%;
+  bottom: -50%;
+  background: linear-gradient(45deg, transparent 20%, rgba(255,255,255,0.4) 50%, transparent 80%);
+  animation: shine 3s infinite;
 }
 
 button:hover {
-  transform: scale(1.15);
-  box-shadow: 
-    0 0 40px rgba(255,107,107,0.8),
-    0 0 60px rgba(255,215,0,0.5) inset;
+  transform: translateY(-3px) scale(1.08); /* 添加Y轴位移 */
+  box-shadow: 0 8px 25px rgba(255,107,107,0.6);
 }
 
-button:active {
-  transform: scale(0.9);
-  box-shadow: 
-    0 0 80px rgba(255,107,107,1),
-    0 0 100px rgba(255,215,0,0.8) inset;
-  animation: explode 0.3s ease-out;
+@keyframes shine {
+  0% { transform: rotate(0deg) translateX(-100%); }
+  100% { transform: rotate(360deg) translateX(100%); }
 }
 
-@keyframes explode {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.5); opacity: 0.8; }
-  100% { transform: scale(0.9); opacity: 1; }
-}
+
 </style>
