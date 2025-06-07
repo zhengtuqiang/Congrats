@@ -121,9 +121,13 @@ onMounted(() => {
   startFrame()
   triggerShoot()
   startFirework()
+  
+
 })
-// 按钮点击处理函数
+// 修改按钮点击处理函数
 const handleConfetti = () => {
+  // 清除自动关闭计时器
+  // 触发所有特效
   fire();
   startFrame();
   triggerShoot();

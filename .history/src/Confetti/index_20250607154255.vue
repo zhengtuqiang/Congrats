@@ -2,6 +2,16 @@
 import { onMounted } from 'vue'
 import confetti from 'canvas-confetti'
 
+// 新增关闭窗口函数
+const closeWindow = () => {
+  const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+  // 模拟快捷键 Command/Ctrl + W
+  utools.simulateKeyboardTap('W', isMac);
+};
+
+// 新增计时器引用
+const autoCloseTimer = ref<NodeJS.Timeout>();
+
 const fire = () => {
 utools.showNotification("hello test");
   const count = 300  // 增加粒子总数
@@ -122,18 +132,11 @@ onMounted(() => {
   triggerShoot()
   startFirework()
 })
-// 按钮点击处理函数
-const handleConfetti = () => {
-  fire();
-  startFrame();
-  triggerShoot();
-  startFirework();
-};
 </script>
 
 <template>
   <div class="confetti-container">
-    <button @click="handleConfetti">撒花 🌸</button>
+    <button @click="[fire(), startFrame(), triggerShoot(), startFirework()]">撒花 🌸</button>
   </div>
 
 </template>

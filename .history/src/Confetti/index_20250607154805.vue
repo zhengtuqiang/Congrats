@@ -2,6 +2,16 @@
 import { onMounted } from 'vue'
 import confetti from 'canvas-confetti'
 
+// 新增关闭窗口函数
+const closeWindow = () => {
+  const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+  // 模拟快捷键 Command/Ctrl + W
+  utools.simulateKeyboardTap('W', isMac);
+};
+
+// 新增计时器引用
+const autoCloseTimer = ref<NodeJS.Timeout>();
+
 const fire = () => {
 utools.showNotification("hello test");
   const count = 300  // 增加粒子总数
@@ -121,9 +131,19 @@ onMounted(() => {
   startFrame()
   triggerShoot()
   startFirework()
+  
+  // 设置4秒后开始1秒倒计时（总动画时间+等待时间）
+  autoCloseTimer.value = setTimeout(() => {
+    const closeTimer = setTimeout(closeWindow, 1000);
+    // 存储第二个计时器以便点击时清除
+    autoCloseTimer.value = closeTimer;
+  }, 4000);
 })
-// 按钮点击处理函数
+// 修改按钮点击处理函数
 const handleConfetti = () => {
+  // 清除自动关闭计时器
+  clearTimeout(autoCloseTimer.value);
+  // 触发所有特效
   fire();
   startFrame();
   triggerShoot();

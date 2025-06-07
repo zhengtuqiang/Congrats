@@ -122,18 +122,11 @@ onMounted(() => {
   triggerShoot()
   startFirework()
 })
-// 按钮点击处理函数
-const handleConfetti = () => {
-  fire();
-  startFrame();
-  triggerShoot();
-  startFirework();
-};
 </script>
 
 <template>
   <div class="confetti-container">
-    <button @click="handleConfetti">撒花 🌸</button>
+    <button @click="[fire(), startFrame(), triggerShoot(), startFirework()]">撒花m 🌸</button>
   </div>
 
 </template>
