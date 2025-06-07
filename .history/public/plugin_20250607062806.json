@@ -12,7 +12,9 @@
       "main": "splash.html",
       "mainHide": true,
       "cmds": [
-        "我的撒花"
+        "撒花",
+        "放烟花",
+        ""
       ]
     }
   ]

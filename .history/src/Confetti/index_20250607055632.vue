@@ -3,7 +3,6 @@ import { onMounted } from 'vue'
 import confetti from 'canvas-confetti'
 
 const fire = () => {
-utools.showNotification("hello test");
   const count = 300  // 增加粒子总数
   const defaults = {
     origin: { y: 0.7 },
@@ -36,7 +35,7 @@ utools.showNotification("hello test");
 }
 // 将 frame 动画提取为独立函数
 const startFrame = () => {
-  const end = Date.now() + (500);
+  const end = Date.now() + (5 * 1000);
   const colors = ['#bb0000', '#ffffff'];
 
   const frame = () => {
@@ -62,71 +61,14 @@ const startFrame = () => {
 
   requestAnimationFrame(frame);
 }
-// 新增射击特效配置
-const shootDefaults = {
-  spread: 360,
-  ticks: 50,
-  gravity: 0,
-  decay: 0.94,
-  startVelocity: 30,
-  colors: ['FFE400', 'FFBD00', 'E89400', 'FFCA6C', 'FDFFB8']
-};
-
-// 新增射击函数
-const triggerShoot = () => {
-  const shoot = () => {
-    confetti({ ...shootDefaults, particleCount: 40, scalar: 1.2, shapes: ['star'] });
-    confetti({ ...shootDefaults, particleCount: 10, scalar: 0.75, shapes: ['circle'] });
-  }
-
-  [0, 100, 200].forEach(timeout => setTimeout(shoot, timeout));
-}
-
-// Firework特效
-const startFirework = () => {
-  const duration = 3 * 1000;
-  const animationEnd = Date.now() + duration;
-  const continuousDefaults = { 
-    startVelocity: 30, 
-    spread: 360, 
-    ticks: 60, 
-    zIndex: 0,
-    colors: ['#FF0000', '#00FF00', '#0000FF']  // 添加三原色
-  };
-
-  const randomInRange = (min: number, max: number) => {
-    return Math.random() * (max - min) + min;
-  }
-
-  const interval = setInterval(() => {
-    const timeLeft = animationEnd - Date.now();
-    if (timeLeft <= 0) return clearInterval(interval);
-
-    const particleCount = 50 * (timeLeft / duration);
-    // 左右两侧同时喷射
-    confetti({ 
-      ...continuousDefaults,
-      particleCount,
-      origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } 
-    });
-    confetti({
-      ...continuousDefaults, 
-      particleCount,
-      origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }
-    });
-  }, 250);
-}
 onMounted(() => {
   fire()
-  startFrame()
-  triggerShoot()
-  startFirework()
 })
 </script>
 
 <template>
   <div class="confetti-container">
-    <button @click="[fire(), startFrame(), triggerShoot(), startFirework()]">撒花 🌸</button>
+    <button @click="[fire(), startFrame()]">撒花 🌸</button>
   </div>
 
 </template>

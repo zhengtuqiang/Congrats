@@ -84,7 +84,7 @@ const triggerShoot = () => {
 
 // Firework特效
 const startFirework = () => {
-  const duration = 3 * 1000;
+  const duration = 15 * 1000;
   const animationEnd = Date.now() + duration;
   const continuousDefaults = { 
     startVelocity: 30, 
